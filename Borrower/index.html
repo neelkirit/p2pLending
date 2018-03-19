@@ -1,40 +1,131 @@
-<!DOCTYPE html>
-<html>
+<html >
 <head>
   <title>Hello World DApp</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
 </head>
-<body class="container">
-  <h1>A Simple Hello World Voting Application</h1>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Candidate</th>
-          <th>Votes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Rama</td>
-          <td id="candidate-1"></td>
-        </tr>
-        <tr>
-          <td>Nick</td>
-          <td id="candidate-2"></td>
-        </tr>
-        <tr>
-          <td>Jose</td>
-          <td id="candidate-3"></td>
-        </tr>
-      </tbody>
-    </table>
+
+<!-- STRUCTURE STARTS HERE -->
+<body >
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">P2P Loans</a>
+      
+    </div>
+  </nav>
+
+  <div class="container">
+   
+    <br>
+
+      <div class="row center" id="box1">
+        <div class="col s12 m6 offset-m3">
+          <div class="card ">
+            <div class="card-content ">
+              <span class="card-title">Enter Bhamashah ID</span>
+                <p>
+                <!-- <div class="input-field col s6"> -->
+                  <input value="1067-7PVQ-28383" id="bhamashah_id" type="text" class="validate">
+                  <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
+                <!-- </div> -->
+                </p>
+            </div>
+            <div class="card-action center">
+              <a  class="btn" href="#" id="getBhamashah">Get Details</a>
+              <!-- <a href="#" id="io">Cancel</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row center" id="box2">
+        <div class="col s12 m6 offset-m3">
+          <div class="card ">
+            <div class="card-content ">
+              <span class="card-title">Congrats you are eligible</span>
+                <p>
+                <!-- <div class="input-field col s6"> -->
+                  <input id="loan_amount" type="number" placeholder="Enter Loan Amount" class="validate">
+                  <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
+                <!-- </div> -->
+                </p>
+            </div>
+            <div class="card-action center">
+              <a class="btn" href="#" id="verify_details">Proceed</a>
+              <!-- <a href="#" id="io">Cancel</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row center" id="box3">
+        <div class="col s12 m6 offset-m3">
+          <div class="card ">
+            <div class="card-content ">
+              <span class="card-title">Verify your details</span>
+                <table>
+                  <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Details</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>Aadhar</td>
+                      <td id="aadhar"></td>
+                    </tr>
+                    <tr>
+                      <td>Name</td>
+                      <td id="name"></td>
+                    </tr>
+                    <tr>
+                      <td>DoB</td>
+                      <td id="dob"></td>
+                    </tr>
+                    <tr>
+                      <td>Annual Income</td>
+                      <td id="income"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Loan Wished</strong></td>
+                      <td ><strong id="loan"></strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="card-action center">
+              <a class="btn" href="#" id="call_smart_contract">Proceed</a>
+              <!-- <a href="#" id="io">Cancel</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+   
   </div>
-  <input type="text" id="candidate" />
-  <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
 </body>
+
+
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-<script src="./index.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<!-- <script src="./index.js"></script> -->
+<script src="./script.js"></script>
+<script>
+  
+</script>
 </html>
