@@ -13,7 +13,7 @@ contract lender {
     }
 
     function GetLenders() public returns (bytes32[] listOfLenders) {
-        return listOfLenders; 
+        return lenderList; 
     }
 
     function stringToBytes32(string memory source) public returns (bytes32 result) {
@@ -26,4 +26,11 @@ contract lender {
             result := mload(add(source, 32))
         }
     }
+
+    //TO DO
+    // Add a funciton that returns the total no of items in lenderList
+    // lenderList.length
+
+    //make a funciton that returns name by id
+    // borrower logic
 }
