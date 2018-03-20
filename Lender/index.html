@@ -5,7 +5,21 @@
 
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+  .card-image{
+    height:30vh;
+    text-align: left;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5vh;
+    padding-left: 10px;
+  }
+  .loan-card .card-image{
+    background-color: #4db6ac;
+  }
+  </style>
 </head>
 
 <!-- STRUCTURE STARTS HERE -->
@@ -99,10 +113,7 @@
                       <td>Bhamashah</td>
                       <td id="bhamashah"></td>
                     </tr>
-                    <tr>
-                      <td>Landline</td>
-                      <td id="landline"></td>
-                    </tr>
+
                     <tr>
                       <td>Mobile</td>
                       <td id="mobile"></td>
@@ -124,56 +135,6 @@
         </div>
       </div>
  
-
-
-        <div class="col s12 m4">
-          <div class="card ">
-            <div class="card-content ">
-
-                <table>
-                  <thead>
-                    <tr>
-                        <th colspan=2>Family Details</th>
-                        
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Father's </strong></td>
-                      <td ><strong id="father"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Spouse's </strong></td>
-                      <td ><strong id="spouse"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Gender</strong></td>
-                      <td ><strong id="gender"></strong></td>
-                    </tr>
-                    <tr>
-                      <td>Ration Card</td>
-                      <td id="rationCard"></td>
-                    </tr>
-                    <tr>
-                      <td>Category</td>
-                      <td id="cat"></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Economic </strong></td>
-                      <td ><strong id="economicGroup"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Address</strong></td>
-                      <td ><strong id="address"></strong></td>
-                    </tr>
-                  </tbody>
-
-                </table>
-              </div>
-            </div>
-          </div>
-   
-
  
         <div class="col s12 m4">
           <div class="card ">
@@ -217,8 +178,13 @@
           </div>
         </div>
         <div class="row center">
-          <a class="waves-effect waves-light btn" id="call_smart_contract">Check Interest Rates</a>
+          <a class="waves-effect waves-light btn" id="call_smart_contract">Check Borrowers</a>
         </div>
+      </div>
+
+
+      <div class="row center" id="box4">
+        
       </div>
 
     

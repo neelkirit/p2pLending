@@ -24,7 +24,7 @@ contract borrower {
         
     }
 
-    function getBorrowerListLength() public {
+    function getBorrowerListLength() returns (uint256) {
         return borrowerDetails.length;
     }
 

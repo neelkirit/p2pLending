@@ -2,8 +2,9 @@
 $( document ).ready(function() {
     $("#box2").hide();
     $("#box3").hide();
+    $("#box4").hide();
     var borrowerDetails,bAadhar,bName,bDOB,bRationCard,bBhamashah,bAddress,bLandline,bMobile,bCat,bFathersName,bSpouse,bGender,bEconomicGroup,bEducation,bIncome,bBankName,bBankAc,bBankIFSC,bBankBranch,risk = "";
-    var jsonData, csv = "";
+    var jsonData,interest,csv = "";
     //Box 1  Submit
     $("#getBhamashah").click(function(){ 
             var bId = $("#bhamashah_id").val();
@@ -37,6 +38,7 @@ $( document ).ready(function() {
     //Box 2  Submit
     $("#verify_details").click(function(){ 
         loanAmount = $("#loan_amount").val();
+        interest = $("#interest").val();
         $("#box2").hide();
         $("#box3").show();
 
@@ -72,47 +74,9 @@ $( document ).ready(function() {
             bBankIFSC = borrowerDetails.IFSC_CODE;
             bBankBranch = borrowerDetails.BLOCK_CITY;
 
-            switch(checkLoanEligibilty(bEconomicGroup,bEducation,bIncome))
-            {
-            case 0: risk = 0;
-                    break;
-            case 1: risk = 2;
-                    break;
-            case 2: risk = 1;
-                    break;
-            }   
 
-            // jsonData = {
-            //     'bh':bBhamashah,
-            //     'loan':loanAmount,
-            //     'risk':risk
+            csv = bBhamashah+","+loanAmount+","+interest;
 
-            // }
-            csv = bBhamashah+","+loanAmount+","+risk;
-            // jsonData = {
-            //     'bAadhar': bAadhar,
-            //     'bName':bName,
-            //     'bDOB':bDOB,
-            //     'bRationCard':bRationCard,
-            //     'bBhamashah':bBhamashah,
-            //     'bAddress':bAddress,
-            //     'bLandline':bLandline,
-            //     'bMobile':bMobile,
-            //     'bCat':bCat,
-            //     'bCat':bCat,
-            //     'bFathersName':bFathersName,
-            //     'bSpouse':bSpouse,
-            //     'bGender':bGender,
-            //     'bEconomicGroup':bEconomicGroup,
-            //     'bEducation':bEducation,
-            //     'bIncome':bIncome,
-            //     'bBankName':bBankName,
-            //     'bBankAc':bBankAc,
-            //     'bBankIFSC':bBankIFSC,
-            //     'bBankBranch':bBankBranch
-            // };
-            
-            // jsonData = JSON.stringify(jsonData);
 
 
 
@@ -154,15 +118,40 @@ $( document ).ready(function() {
 
     //Box 3  Submit
     $("#call_smart_contract").click(function(){ 
+        // Add Lender Smart Contract
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-        abi = JSON.parse('[{"constant":false,"inputs":[{"name":"borrower","type":"string"}],"name":"addToBorrowerPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getBorrowerFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"borrowerDetails","type":"bytes32[]"}],"name":"Borrower","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"borrowerDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]');
+        abi = JSON.parse('[{"constant":false,"inputs":[{"name":"lenderDetail","type":"string"}],"name":"AddLender","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"GetLenderListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"lenderList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"GetLenders","outputs":[{"name":"listOfLenders","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"GetLenderFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"lenderDetails","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]');
         borrowerContract = web3.eth.contract(abi);
-        contractInstance = borrowerContract.at('0x07c2076594cf45eeed5f604a321174cdd5b27f4e');
+        contractInstance = borrowerContract.at('0xda5712f03fb5e3467acfd5c024203eb53f9aae02');
+        contractInstance.AddLender(csv,{from: web3.eth.accounts[0]});
+        $("#box3").hide();
+        $("#box4").show();
+        fetchBorrowerFromBlockchain();
+    });
+
+    // $("#call_smart_contract_borrower").click(function(){ 
+    function fetchBorrowerFromBlockchain(){
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        abi = JSON.parse('[{"constant":false,"inputs":[],"name":"getBorrowerListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrower","type":"string"}],"name":"addToBorrowerPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getBorrowerFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"GetBorrowers","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrowerDetails","type":"bytes32[]"}],"name":"Borrower","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"borrowerDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]');
+        borrowerContract = web3.eth.contract(abi);
+        contractInstance = borrowerContract.at('0x2417ae0cc0a07cc4a96e43801507c7cc2fe0e3ca');
         console.log(csv);
 
-        contractInstance.addToBorrowerPool(csv, {from: web3.eth.accounts[0]}, function() {});
+        var  totalBorrower = contractInstance.getBorrowerListLength.call( {from: web3.eth.accounts[0]});
+        totalBorrower = totalBorrower.c[0];
 
-    });
+        for( i = 0 ; i < totalBorrower; i++) {
+            var str = contractInstance.getBorrowerFromPool.call(i,{from: web3.eth.accounts[0]});
+            console.log(str);
+            var arr = str.split(",");
+            $("#box4").append("<div class='col s12 m3'> <div class='card medium loan-card'> <div class='card-image activator waves-effect waves-block waves-light'> Principal Amount:"+arr[1]+"<br> Risk: "+arr[2]+"<br> </div> <div class='card-content'> <span class='card-title activator grey-text text-darken-4'>Loan Details<i class='material-icons right'>more_vert</i></span> <p><a href='#'>Accept Loan Request</a></p> </div> <div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Card Title<i class='material-icons right'>close</i></span> <p>Here is some more information about this product that is only revealed once clicked on.</p> </div> </div> </div>")
+        }
+
+        
+        
+
+
+    }
 
 
 });
