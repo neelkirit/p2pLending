@@ -48,6 +48,7 @@ contract borrower {
                 return borrowerDetails;
             }
         }
+        return borrowerDetails;
     }
 
     function stringToBytes32(string memory source) returns (bytes32 result) {
