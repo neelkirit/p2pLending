@@ -35,21 +35,18 @@ contract borrower {
     }
 
     function removeBorrower(uint8 borrowerId) public {
-        uint8 index = -1;
-
         for (uint i = 0; i < borrowerDetails.length; i++) {
             if (borrowerDetails[i] == stringToBytes32(borrower)) {
-                index = i;
-            }
-        }
+                uint8 index = i;
 
-        if (index != -1){
-            for (uint i = index; i<borrowerDetails.length-1; i++){
-            borrowerDetails[i] = borrowerDetails[i+1];
-        }
-            delete borrowerDetails[borrowerDetails.length-1];
-            borrowerDetails.length--;
-            return borrowerDetails;
+                for (uint j = index; j<borrowerDetails.length-1; j++){
+                    borrowerDetails[j] = borrowerDetails[j+1];
+                }
+                
+                delete borrowerDetails[borrowerDetails.length-1];
+                borrowerDetails.length--;
+                return borrowerDetails;
+            }
         }
     }
 
