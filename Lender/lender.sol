@@ -27,10 +27,28 @@ contract lender {
         }
     }
 
-    //TO DO
-    // Add a funciton that returns the total no of items in lenderList
-    // lenderList.length
+    function GetLenderListLength() public returns (uint256) {
+        return lenderList.length;
+    }
 
-    //make a funciton that returns name by id
-    // borrower logic
+    function GetLenderFromPool(uint8 id) public returns (string) {
+        return bytes32ToString(lenderList[id]);
+    }
+
+    function bytes32ToString(bytes32 x) constant returns (string) {
+       bytes memory bytesString = new bytes(32);
+       uint charCount = 0;
+       for (uint j = 0; j < 32; j++) {
+           byte char = byte(bytes32(uint(x) * 2 ** (8 * j)));
+           if (char != 0) {
+               bytesString[charCount] = char;
+               charCount++;
+           }
+       }
+       bytes memory bytesStringTrimmed = new bytes(charCount);
+       for (j = 0; j < charCount; j++) {
+           bytesStringTrimmed[j] = bytesString[j];
+       }
+       return string(bytesStringTrimmed);
+    }
 }
