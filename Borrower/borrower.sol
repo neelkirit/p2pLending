@@ -34,6 +34,13 @@ contract borrower {
         return bytes32ToString(borrowerDetails[id]);
     }
 
+    function ignoreBorrower(uint8 index) public returns (bytes32[]) {
+        if(index < borrowerDetails.length)
+          borrowerDetails[index] = stringToBytes32("xxxx");
+        
+        return borrowerDetails;
+    }
+
     function removeBorrower(uint8 index) public returns (bytes32[]) {
         for (uint i = index; i<borrowerDetails.length-1; i++){
             borrowerDetails[i] = borrowerDetails[i+1];

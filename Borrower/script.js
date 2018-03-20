@@ -2,6 +2,7 @@
 $( document ).ready(function() {
     $("#box2").hide();
     $("#box3").hide();
+    $("#box4").hide();
     var borrowerDetails,bAadhar,bName,bDOB,bRationCard,bBhamashah,bAddress,bLandline,bMobile,bCat,bFathersName,bSpouse,bGender,bEconomicGroup,bEducation,bIncome,bBankName,bBankAc,bBankIFSC,bBankBranch,risk = "";
     var jsonData, csv = "";
     //Box 1  Submit
@@ -153,16 +154,38 @@ $( document ).ready(function() {
     }
 
     //Box 3  Submit
+    $("#show_interest").click(function(){ 
+        swal({
+          title: "Sucess!",
+          text: "Your Interest Rate is 4.5%",
+          icon: "success",
+          button: "Proceed!"
+          })
+          .then((confirm) => {
+            call_smart_contract();
+            });
+        
+            
+            
+        });
+    
+    
     $("#call_smart_contract").click(function(){ 
-        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-        abi = JSON.parse('[{"constant":false,"inputs":[],"name":"getBorrowerListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrower","type":"string"}],"name":"addToBorrowerPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getBorrowerFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"GetBorrowers","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrowerDetails","type":"bytes32[]"}],"name":"Borrower","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"borrowerDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]');
-        borrowerContract = web3.eth.contract(abi);
-        contractInstance = borrowerContract.at('0x2417ae0cc0a07cc4a96e43801507c7cc2fe0e3ca');
-        console.log(csv);
-
-        contractInstance.addToBorrowerPool(csv, {from: web3.eth.accounts[0]}, function() {});
+        
 
     });
+
+    function call_smart_contract() {
+            $("#box3").hide();
+            $("#box4").show();
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            abi = JSON.parse('[{"constant":false,"inputs":[],"name":"getBorrowerListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"removeBorrower","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrower","type":"string"}],"name":"addToBorrowerPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getBorrowerFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"GetBorrowers","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrowerDetails","type":"bytes32[]"}],"name":"Borrower","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"borrowerDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"ignoreBorrower","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]');
+            borrowerContract = web3.eth.contract(abi);
+            contractInstance = borrowerContract.at('0xa2946ad7bd41632daeb95210d9158c7d8b2bf25c');
+            console.log(csv);
+
+            contractInstance.addToBorrowerPool(csv, {from: web3.eth.accounts[0]}, function() {});
+    }
 
 
 });

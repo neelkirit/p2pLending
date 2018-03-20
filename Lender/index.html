@@ -1,206 +1,348 @@
 <html >
-<head>
-  <title>Lender DAPP</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+   <head>
+      <title>Lender DAPP</title>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+      <style>
+         .card-image{
+         height:30vh;
+         text-align: left;
+         font-weight: 700;
+         color: #fff;
+         font-family: 'Montserrat', sans-serif;
+         font-size: 2.5vh;
+         padding-left: 10px;
+         }
+         .loan-card .card-image{
+         background-color: #ee6e73;
+         }
+         .show-pointer{ 
+         cursor:pointer; 
+          }
+        .btn{
+          background-color: #ee6e73 !important;
+          border-radius: 21px;
+        }
+      </style>
+   </head>
+   <!-- STRUCTURE STARTS HERE -->
+   <body style="background-color: #f3f3f3;">
+      <nav>
+         <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">Bhamashah Loans</a>
+         </div>
+      </nav>
+      <div class="container">
+         <br>
+         <div class="row center" id="box1">
+            <div class="col s12 m6 offset-m3">
+               <div class="card ">
+                  <div class="card-content ">
+                     <span class="card-title">Enter Bhamashah ID</span>
+                     <p>
+                        <!-- <div class="input-field col s6"> -->
+                        <input value="1067-7PVQ-28383" id="bhamashah_id" type="text" class="validate">
+                        <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
+                        <!-- </div> -->
+                     </p>
+                  </div>
+                  <div class="card-action center">
+                     <a  class="btn" href="#" id="getBhamashah"><i class="fas fa-newspaper"></i> Get Details</a>
+                     <!-- <a href="#" id="io">Cancel</a> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <br>
+         <div class="row center" id="box2">
+            <div class="col s12 m6 offset-m3">
+               <div class="card ">
+                  <div class="card-content ">
+                     <span class="card-title">Excellent! How much you want to lend</span>
+                     <p>
+                        <!-- <div class="input-field col s6"> -->
+                        <input id="loan_amount" type="number" placeholder="Enter Loan Amount" class="validate">
+                        <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
+                        <!-- </div> -->
+                     </p>
+                     <p>
+                        <input id="interest" type="number" placeholder="Interest Rate you want to Earn" class="validate">
+                     </p>
+                     <p>
+                        <input id="days" type="number" placeholder="Loan Duration in Days" class="validate">
+                     </p>
+                  </div>
+                  <div class="card-action center">
+                     <a class="btn" href="#" id="verify_details"><i class="fas fa-paper-plane"></i> Proceed</a>
+                     <!-- <a href="#" id="io">Cancel</a> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="box3">
+         <div class="row center" >
+          <h5> My Details</h5>
+            <div class="col s12 m6">
 
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
-  .card-image{
-    height:30vh;
-    text-align: left;
-    font-weight: 700;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5vh;
-    padding-left: 10px;
-  }
-  .loan-card .card-image{
-    background-color: #4db6ac;
-  }
-  </style>
-</head>
+               <div class="card ">
+                  <div class="card-content ">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th colspan=2>Personal Details</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Aadhar</td>
+                              <td id="aadhar"></td>
+                           </tr>
+                           <tr>
+                              <td>Name</td>
+                              <td id="name"></td>
+                           </tr>
+                           <tr>
+                              <td>DoB</td>
+                              <td id="dob"></td>
+                           </tr>
+                           <tr>
+                              <td>Bhamashah</td>
+                              <td id="bhamashah"></td>
+                           </tr>
+                           <tr>
+                              <td>Mobile</td>
+                              <td id="mobile"></td>
+                           </tr>
+                           <tr>
+                              <td><Education</td>
+                              <td  id="education"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class="col s12 m6">
+               <div class="card ">
+                  <div class="card-content ">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th colspan=2>Financial Details</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Income</td>
+                              <td  id="income"></td>
+                           </tr>
+                           <tr>
+                              <td>Bank Name</td>
+                              <td  id="bankName"></td>
+                           </tr>
+                           <tr>
+                              <td>AC Number</td>
+                              <td  id="bankAc"></td>
+                           </tr>
+                           <tr>
+                              <td>IFS Code</td>
+                              <td  id="bankIFSC"></td>
+                           </tr>
+                           <tr>
+                              <td>Branch</td>
+                              <td id="bankBranch"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                    <br><br>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+         <div class="row center">
+               <a class="waves-effect waves-light btn" id="selectionPage"><i class="fas fa-paper-plane"></i> Proceed</a>
+          </div>
+        </div>
 
-<!-- STRUCTURE STARTS HERE -->
-<body style="background-color: #f3f3f3;">
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">P2P Loans</a>
+        <!-- Next Screen -->
+         <div class="row center" id="box3-2">
+            <a id="call_smart_contract" class=" show-pointer">
+               <div class="col s12 m5 offset-m1">
+                  <div class="card-panel red lighten-3" style="padding:20%">
+                     <h5 class="white-text"><i class="fas fa-file-alt"></i> <br>Invest in new Loans
+                     </h5>
+                  </div>
+               </div>
+            </a>
+            <a id="show_dashboard" class=" show-pointer">
+               <div class="col s12 m5">
+                  <div class="card-panel pink darken-1" style="padding:20%">
+                     <h5 class="white-text"><i class="fas fa-chart-line"></i> <br>Existing Loans 
+                     </h5>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="row center" id="box4">
+         </div>
+         <!-- Screen 5 -->
+         <div id="box5">
+         <div class="row center" >
+            <h5>Loan Dashboard</h5>
+            <!-- First Coolumn -->
+            <div class="col s12 m4">
+               <div class="card ">
+                  <div class="card-content ">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th colspan=2>Borrower Personal Details</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Aadhar</td>
+                              <td id="b-aadhar"></td>
+                           </tr>
+                           <tr>
+                              <td>Name</td>
+                              <td id="b-name"></td>
+                           </tr>
+                           <tr>
+                              <td>DoB</td>
+                              <td id="b-dob"></td>
+                           </tr>
+                           <tr>
+                              <td>Bhamashah</td>
+                              <td id="b-bhamashah"></td>
+                           </tr>
+                           <tr>
+                              <td>Landline</td>
+                              <td id="b-landline"></td>
+                           </tr>
+                           <tr>
+                              <td>Mobile</td>
+                              <td id="b-mobile"></td>
+                           </tr>
+                           <tr>
+                              <td>Education</td>
+                              <td  id="b-education"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <br><br><br>
+                  </div>
+               </div>
+            </div>
+            <!-- Second Column -->
+            <div class="col s12 m4" >
+               <div class="card ">
+                  <div class="card-content ">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th colspan=2>Borrower Family Details</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                               <td> Father  </td>
+                               <td  id="b-father"> </td>
+                            </tr>
+                            <tr>
+                               <td> Spouse  </td>
+                               <td  id="b-spouse"> </td>
+                            </tr>
+                            <tr>
+                               <td> Gender </td>
+                               <td  id="b-gender"> </td>
+                            </tr>
+                            <tr>
+                               <td>Ration Card</td>
+                               <td id="b-rationCard"></td>
+                            </tr>
+                            <tr>
+                               <td>Category</td>
+                               <td id="b-cat"></td>
+                            </tr>
+                            <tr>
+                               <td> Economy  </td>
+                               <td  id="b-economicGroup"> </td>
+                            </tr>
+                            <tr>
+                               <td> Address </td>
+                               <td  id="b-address"> </td>
+                            </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <!-- Third Column -->
+            <div class="col s12 m4">
+               <div class="card ">
+                  <div class="card-content ">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th colspan=2>Borrower Financial Details</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Income</td>
+                              <td  id="b-income"></td>
+                           </tr>
+                           <tr>
+                              <td>Bank Name</td>
+                              <td  id="b-bankName"></td>
+                           </tr>
+                           <tr>
+                              <td>AC Number</td>
+                              <td  id="b-bankAc"></td>
+                           </tr>
+                           <tr>
+                              <td>IFS Code</td>
+                              <td  id="b-bankIFSC"></td>
+                           </tr>
+                           <tr>
+                              <td>Branch</td>
+                              <td  id="b-bankBranch"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <br><br><br><br><br><br><br>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+         <div class="row center"><a class="waves-effect waves-light btn" id="prev"><i class="fas fa-arrow-circle-left"></i> Previous</a></div>
+        </div>
+      </div>
+   </body>
+   <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+   <!-- <script src="./index.js"></script> -->
+   <script src="./script.js"></script>
+   <script>
+      function match(i) {
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            abi = JSON.parse('[{"constant":false,"inputs":[],"name":"getBorrowerListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"removeBorrower","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrower","type":"string"}],"name":"addToBorrowerPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getBorrowerFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"GetBorrowers","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrowerDetails","type":"bytes32[]"}],"name":"Borrower","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"borrowerDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"ignoreBorrower","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]');
+            borrowerContract = web3.eth.contract(abi);
+            contractInstance = borrowerContract.at('0x6ee2d6caa178bbc1ac01fde81eb39956d6739472');
+            contractInstance.ignoreBorrower(i, {from: web3.eth.accounts[0]});
       
-    </div>
-  </nav>
-
-  <div class="container">
-   
-    <br>
-
-      <div class="row center" id="box1">
-        <div class="col s12 m6 offset-m3">
-          <div class="card ">
-            <div class="card-content ">
-              <span class="card-title">Enter Bhamashah ID</span>
-                <p>
-                <!-- <div class="input-field col s6"> -->
-                  <input value="1067-7PVQ-28383" id="bhamashah_id" type="text" class="validate">
-                  <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
-                <!-- </div> -->
-                </p>
-            </div>
-            <div class="card-action center">
-              <a  class="btn" href="#" id="getBhamashah">Get Details</a>
-              <!-- <a href="#" id="io">Cancel</a> -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <br>
-
-      <div class="row center" id="box2">
-        <div class="col s12 m6 offset-m3">
-          <div class="card ">
-            <div class="card-content ">
-              <span class="card-title">Excellent how much you wnt to lend!</span>
-                <p>
-                <!-- <div class="input-field col s6"> -->
-                  <input id="loan_amount" type="number" placeholder="Enter Loan Amount" class="validate">
-                  <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
-                <!-- </div> -->
-                </p>
-                <p>
-
-                  <input id="interest" type="number" placeholder="Expected Interest Rate" class="validate">
-
-                </p>
-            </div>
-            <div class="card-action center">
-              <a class="btn" href="#" id="verify_details">Proceed</a>
-              <!-- <a href="#" id="io">Cancel</a> -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row center" id="box3">
-        <div class="col s12 m4">
-          <div class="card ">
-            <div class="card-content ">
-                <table>
-                  <thead>
-                    <tr>
-                        <th colspan=2>Personal Details</th>
-                        
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      <td>Aadhar</td>
-                      <td id="aadhar"></td>
-                    </tr>
-                    <tr>
-                      <td>Name</td>
-                      <td id="name"></td>
-                    </tr>
-                    <tr>
-                      <td>DoB</td>
-                      <td id="dob"></td>
-                    </tr>
-                    
-                    <tr>
-                      <td>Bhamashah</td>
-                      <td id="bhamashah"></td>
-                    </tr>
-
-                    <tr>
-                      <td>Mobile</td>
-                      <td id="mobile"></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Education</strong></td>
-                      <td ><strong id="education"></strong></td>
-                    </tr>
-
-
-
-                 <!--    <tr>
-                      <td><strong>Loan Wished</strong></td>
-                      <td ><strong id="loan"></strong></td>
-                    </tr> -->
-                  </tbody>
-                </table>
-              </div>
-        </div>
-      </div>
- 
- 
-        <div class="col s12 m4">
-          <div class="card ">
-            <div class="card-content ">
-
-                <table>
-                  <thead>
-                    <tr>
-                        <th colspan=2>Financial Details</th>
-                        
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-                    
-                    <tr>
-                      <td><strong>Income</strong></td>
-                      <td ><strong id="income"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Bank Name</strong></td>
-                      <td ><strong id="bankName"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>AC Number</strong></td>
-                      <td ><strong id="bankAc"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>IFS Code</strong></td>
-                      <td ><strong id="bankIFSC"></strong></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Branch</strong></td>
-                      <td ><strong id="bankBranch"></strong></td>
-                    </tr>
-                  </tbody>
-
-                </table>
-            </div>
-
-          </div>
-        </div>
-        <div class="row center">
-          <a class="waves-effect waves-light btn" id="call_smart_contract">Check Borrowers</a>
-        </div>
-      </div>
-
-
-      <div class="row center" id="box4">
-        
-      </div>
-
-    
-  </div>
-
-</body>
-
-
-<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<!-- <script src="./index.js"></script> -->
-<script src="./script.js"></script>
-<script>
-  
-</script>
+            $("#box4").hide();
+            $("#box5").show();
+      
+        }
+   </script>
 </html>

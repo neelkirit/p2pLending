@@ -2,9 +2,12 @@
 $( document ).ready(function() {
     $("#box2").hide();
     $("#box3").hide();
+    $("#box3-2").hide();
     $("#box4").hide();
+    $("#box5").hide();
+    $("#box6").hide();
     var borrowerDetails,bAadhar,bName,bDOB,bRationCard,bBhamashah,bAddress,bLandline,bMobile,bCat,bFathersName,bSpouse,bGender,bEconomicGroup,bEducation,bIncome,bBankName,bBankAc,bBankIFSC,bBankBranch,risk = "";
-    var jsonData,interest,csv = "";
+    var jsonData,interest,csv,days = "";
     //Box 1  Submit
     $("#getBhamashah").click(function(){ 
             var bId = $("#bhamashah_id").val();
@@ -39,6 +42,8 @@ $( document ).ready(function() {
     $("#verify_details").click(function(){ 
         loanAmount = $("#loan_amount").val();
         interest = $("#interest").val();
+        days = $("#days").val();
+
         $("#box2").hide();
         $("#box3").show();
 
@@ -75,7 +80,7 @@ $( document ).ready(function() {
             bBankBranch = borrowerDetails.BLOCK_CITY;
 
 
-            csv = bBhamashah+","+loanAmount+","+interest;
+            csv = bBhamashah+","+loanAmount+","+interest+","+days;
 
 
 
@@ -112,11 +117,15 @@ $( document ).ready(function() {
     });
 
 
-    function checkLoanEligibilty(eco,edu,inc) {
-        return 1;
-    }
+    
 
     //Box 3  Submit
+    $("#selectionPage").click(function(){ 
+        $("#box3").hide();
+        $("#box3-2").show();
+    });
+
+    //Box 3-2 Submit
     $("#call_smart_contract").click(function(){ 
         // Add Lender Smart Contract
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
@@ -124,7 +133,7 @@ $( document ).ready(function() {
         borrowerContract = web3.eth.contract(abi);
         contractInstance = borrowerContract.at('0xda5712f03fb5e3467acfd5c024203eb53f9aae02');
         contractInstance.AddLender(csv,{from: web3.eth.accounts[0]});
-        $("#box3").hide();
+        $("#box3-2").hide();
         $("#box4").show();
         fetchBorrowerFromBlockchain();
     });
@@ -134,7 +143,7 @@ $( document ).ready(function() {
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
         abi = JSON.parse('[{"constant":false,"inputs":[],"name":"getBorrowerListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"removeBorrower","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrower","type":"string"}],"name":"addToBorrowerPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getBorrowerFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"GetBorrowers","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"borrowerDetails","type":"bytes32[]"}],"name":"Borrower","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"borrowerDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"ignoreBorrower","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]');
         borrowerContract = web3.eth.contract(abi);
-        contractInstance = borrowerContract.at('0xa2946ad7bd41632daeb95210d9158c7d8b2bf25c');
+        contractInstance = borrowerContract.at('0x6ee2d6caa178bbc1ac01fde81eb39956d6739472');
         console.log(csv);
 
         var  totalBorrower = contractInstance.getBorrowerListLength.call( {from: web3.eth.accounts[0]});
@@ -143,15 +152,182 @@ $( document ).ready(function() {
         for( i = 0 ; i < totalBorrower; i++) {
             var str = contractInstance.getBorrowerFromPool.call(i,{from: web3.eth.accounts[0]});
             console.log(str);
-            var arr = str.split(",");
-            $("#box4").append("<div class='col s12 m3'> <div class='card medium loan-card'> <div class='card-image activator waves-effect waves-block waves-light'> Principal Amount:"+arr[1]+"<br> Risk: "+arr[2]+"<br> </div> <div class='card-content'> <span class='card-title activator grey-text text-darken-4'>Loan Details<i class='material-icons right'>more_vert</i></span> <p><a href='#'>Accept Loan Request</a></p> </div> <div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Card Title<i class='material-icons right'>close</i></span> <p>Here is some more information about this product that is only revealed once clicked on.</p> </div> </div> </div>")
+            if(str!="xxxx"){
+                var arr = str.split(",");
+                
+                $("#box4").append("<div class='col s12 m6'> <div class='card medium loan-card'> <div class='card-image activator waves-effect waves-block waves-light' style='padding:10%''><br> Principal Amount:"+arr[1]+"<br><br> Interest: "+arr[2]+"<br> </div> <div class='card-content'> <span class='card-title activator grey-text text-darken-4'>View Loan Details<i class='material-icons right'>more_vert</i></span> <p><a class='waves-effect waves-light btn' onclick='match("+i+")''>Accept Loan Request</a></p> </div> <div class='card-reveal'> <span class='card-title'><i class='material-icons right'>close</i></span> <table> <tbody> <tr> <td>Aadhar</td> <td id='aadhar"+i+"'></td> </tr> <tr> <td>DoB</td> <td id='dob"+i+"'></td> </tr> <tr> <td>Bhamashah</td> <td id='bhamashah"+i+"'></td> </tr> <tr> <td>Category</td> <td id='cat"+i+"'></td> </tr> <tr> <td><strong>Economic </strong></td> <td ><strong id='economicGroup"+i+"'></strong></td> </tr> <tr> <td><strong>Education</strong></td> <td ><strong id='education"+i+"'></strong></td> </tr> <tr> <td><strong>Income</strong></td> <td ><strong id='income"+i+"'></strong></td> </tr> </tbody> </table> </div> </div> </div>");
+                //Fetch Bhamashsh Details
+                fetchBhamashahDetails(arr[0],i);
+            }
+            
         }
-
-        
-        
-
-
     }
+
+    function fetchBhamashahDetails(bId,i) {
+        jQuery.ajax({
+                type: "GET",
+                url: "https://apitest.sewadwaar.rajasthan.gov.in/app/live/Service/hofAndMember/ForApp/"+bId+"?client_id=ad7288a4-7764-436d-a727-783a977f1fe1",
+                // data: $scope.awardsDetails,
+                // contentType: "application/json",
+                complete: function(data) {
+                    borrowerDetails = JSON.parse(data.responseText);
+                    console.log("Received");
+                    console.log(borrowerDetails);
+                }
+            });
+        if(borrowerDetails != null) {
+            console.log("Here"+i);
+            // Personal Details
+            bAadhar = borrowerDetails.AADHAR_ID;
+            bName = borrowerDetails.NAME_ENG;
+            bDOB = borrowerDetails.DOB;
+            bRationCard = borrowerDetails.RATION_CARD_NO;
+            bBhamashah = borrowerDetails.BHAMASHAH_ID;
+            bAddress = borrowerDetails.ADDRESS + " " + borrowerDetails.PIN_CODE;
+            bLandline = borrowerDetails.LANDLINE_NO;
+            bMobile = borrowerDetails.MOBILE_NO;
+            bCat = borrowerDetails.CATEGORY_DESC_ENG;
+
+            bFathersName = borrowerDetails.FATHER_NAME_ENG;
+            bSpouse = borrowerDetails.SPOUCE_NAME_ENG;
+            bGender = borrowerDetails.GENDER;
+
+            // Risk Evaluation
+            bEconomicGroup = borrowerDetails.ECONOMIC_GROUP;
+            bEducation = borrowerDetails.EDUCATION_DESC_ENG;
+            bIncome = borrowerDetails.INCOME_DESC_EN;
+            if(bIncome == null) {
+                bIncome = "Less than 5000";
+            }
+
+            // Bank Details
+            bBankName = borrowerDetails.BANK_NAME;
+            bBankAc = borrowerDetails.ACC_NO;
+            bBankIFSC = borrowerDetails.IFSC_CODE;
+            bBankBranch = borrowerDetails.BLOCK_CITY;
+
+
+            $("#aadhar"+i).html(bAadhar);
+            $("#name"+i).html(bName);
+            $("#dob"+i).html(bDOB);
+            $("#rationCard"+i).html(bRationCard);
+            $("#bhamashah"+i).html(bBhamashah);
+            $("#address"+i).html(bAddress);
+            $("#landline"+i).html(bLandline);
+            $("#mobile"+i).html(bMobile);
+            $("#cat"+i).html(bCat);
+
+            $("#father"+i).html(bFathersName);
+            $("#spouse"+i).html(bSpouse);
+            $("#gender"+i).html(bGender);
+
+            $("#economicGroup"+i).html(bEconomicGroup);
+            $("#education"+i).html(bEducation);
+            $("#income"+i).html(bIncome);
+
+            $("#loan"+i).html(loanAmount);
+            $("#bankName"+i).html(bBankName);
+            $("#bankAc"+i).html(bBankAc);
+            $("#bankIFSC"+i).html(bBankIFSC);
+            $("#bankBranch"+i).html(bBankBranch);
+        }
+    }
+
+
+    //Box 3-2  Submit
+    $("#show_dashboard").click(function(){ 
+        $("#box3-2").hide();
+        $("#box5").show();
+        //Match Smart Contract
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        abi = JSON.parse('[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"matchTerms","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getMatchFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"GetMatches","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"getMatchTermsListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint8"}],"name":"getMatchTermsFromPool","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"matchTerm","type":"string"}],"name":"addToMatchTermsPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"matchedLoan","type":"string"}],"name":"addToMatchPool","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"matchDetails","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"getMatchListLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"ignoreMatch","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"source","type":"string"}],"name":"stringToBytes32","outputs":[{"name":"result","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"removeMatch","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint8"}],"name":"ignoreMatchTerm","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"matchDetails","type":"bytes32[]"},{"name":"matchTerms","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]');
+        matchContract = web3.eth.contract(abi);
+        contractInstance = matchContract.at('0x5b599bf255fa4f12564eeab46bde22b503283cda');
+        console.log(csv);
+
+        var  str = contractInstance.getMatchFromPool.call(0,{from: web3.eth.accounts[0]});
+        arr = str.split(',');
+        
+        
+
+        jQuery.ajax({
+                type: "GET",
+                url: "https://apitest.sewadwaar.rajasthan.gov.in/app/live/Service/hofAndMember/ForApp/"+arr[1]+"?client_id=ad7288a4-7764-436d-a727-783a977f1fe1",
+                // data: $scope.awardsDetails,
+                // contentType: "application/json",
+                complete: function(data) {
+                    borrowerDetails = JSON.parse(data.responseText);
+                    console.log("Received");
+                    console.log(borrowerDetails);
+                }
+            });
+        if(borrowerDetails != null) {
+            console.log("Here");
+            // Personal Details
+            bAadhar = borrowerDetails.AADHAR_ID;
+            bName = borrowerDetails.NAME_ENG;
+            bDOB = borrowerDetails.DOB;
+            bRationCard = borrowerDetails.RATION_CARD_NO;
+            bBhamashah = borrowerDetails.BHAMASHAH_ID;
+            bAddress = borrowerDetails.ADDRESS + " " + borrowerDetails.PIN_CODE;
+            bLandline = borrowerDetails.LANDLINE_NO;
+            bMobile = borrowerDetails.MOBILE_NO;
+            bCat = borrowerDetails.CATEGORY_DESC_ENG;
+
+            bFathersName = borrowerDetails.FATHER_NAME_ENG;
+            bSpouse = borrowerDetails.SPOUCE_NAME_ENG;
+            bGender = borrowerDetails.GENDER;
+
+            // Risk Evaluation
+            bEconomicGroup = borrowerDetails.ECONOMIC_GROUP;
+            bEducation = borrowerDetails.EDUCATION_DESC_ENG;
+            bIncome = borrowerDetails.INCOME_DESC_EN;
+            if(bIncome == null) {
+                bIncome = "Less than 5000";
+            }
+
+            // Bank Details
+            bBankName = borrowerDetails.BANK_NAME;
+            bBankAc = borrowerDetails.ACC_NO;
+            bBankIFSC = borrowerDetails.IFSC_CODE;
+            bBankBranch = borrowerDetails.BLOCK_CITY;
+
+
+            $("#b-aadhar").html(bAadhar);
+            $("#b-name").html(bName);
+            $("#b-dob").html(bDOB);
+            $("#b-rationCard").html(bRationCard);
+            $("#b-bhamashah").html(bBhamashah);
+            $("#b-address").html(bAddress);
+            $("#b-landline").html(bLandline);
+            $("#b-mobile").html(bMobile);
+            $("#b-cat").html(bCat);
+
+            $("#b-father").html(bFathersName);
+            $("#b-spouse").html(bSpouse);
+            $("#b-gender").html(bGender);
+
+            $("#b-economicGroup").html(bEconomicGroup);
+            $("#b-education").html(bEducation);
+            $("#b-income").html(bIncome);
+
+            $("#b-loan").html(loanAmount);
+            $("#b-bankName").html(bBankName);
+            $("#b-bankAc").html(bBankAc);
+            $("#b-bankIFSC").html(bBankIFSC);
+            $("#b-bankBranch").html(bBankBranch);
+        }
+    });
+
+
+    //Box 5  Submit
+    $("#prev").click(function(){ 
+        $("#box3-2").show();
+        $("#box5").hide();
+    });
+
+
+
 
 
 });

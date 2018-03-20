@@ -1,18 +1,40 @@
 <html >
 <head>
   <title>Loan DAPP</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+  <style>
+     .card-image{
+     height:30vh;
+     text-align: left;
+     font-weight: 700;
+     color: #fff;
+     font-family: 'Montserrat', sans-serif;
+     font-size: 2.5vh;
+     padding-left: 10px;
+     }
+     .loan-card .card-image{
+     background-color: #4db6ac;
+     }
+     .show-pointer{ 
+     cursor:pointer; 
+      }
+    .btn{
+      background-color: #ee6e73 !important;
+      border-radius: 21px;
+    }
+  </style>
 </head>
 
 <!-- STRUCTURE STARTS HERE -->
 <body style="background-color: #f3f3f3;">
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">P2P Loans</a>
+      <a href="#" class="brand-logo center">Bhamashah Loans</a>
       
     </div>
   </nav>
@@ -22,7 +44,7 @@
     <br>
 
       <div class="row center" id="box1">
-        <div class="col s12 m6 offset-m3">
+        <div class="col s12 m8 offset-m2">
           <div class="card ">
             <div class="card-content ">
               <span class="card-title">Enter Bhamashah ID</span>
@@ -34,7 +56,7 @@
                 </p>
             </div>
             <div class="card-action center">
-              <a  class="btn" href="#" id="getBhamashah">Get Details</a>
+              <a  class="btn" href="#" id="getBhamashah"><i class="fas fa-newspaper"></i> Get Details</a>
               <!-- <a href="#" id="io">Cancel</a> -->
             </div>
           </div>
@@ -44,7 +66,7 @@
       <br>
 
       <div class="row center" id="box2">
-        <div class="col s12 m6 offset-m3">
+        <div class="col s12 m8 offset-m2">
           <div class="card ">
             <div class="card-content ">
               <span class="card-title">Congrats you are eligible !</span>
@@ -54,18 +76,25 @@
                   <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
                 <!-- </div> -->
                 </p>
+                <p>
+                <!-- <div class="input-field col s6"> -->
+                  <input id="days" type="number" placeholder="Enter Repayment Period" class="validate">
+                  <!-- <label for="bhamashah_id">Enter Bhamashah ID</label> -->
+                <!-- </div> -->
+                </p>
             </div>
             <div class="card-action center">
-              <a class="btn" href="#" id="verify_details">Proceed</a>
+              <a class="btn" href="#" id="verify_details"><i class="fas fa-paper-plane"></i> Proceed</a>
               <!-- <a href="#" id="io">Cancel</a> -->
             </div>
           </div>
         </div>
       </div>
 
-
-      <div class="row center" id="box3">
-        <div class="col s12 m4">
+      <div id="box3">
+      <div class="row center" >
+        <h5>Personal Details </h5>
+        <div class="col s12 m6">
           <div class="card ">
             <div class="card-content ">
                 <table>
@@ -115,13 +144,14 @@
                     </tr> -->
                   </tbody>
                 </table>
+                <br><br>
               </div>
         </div>
       </div>
  
 
 
-        <div class="col s12 m4">
+        <div class="col s12 m6">
           <div class="card ">
             <div class="card-content ">
 
@@ -134,16 +164,16 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><strong>Father's </strong></td>
-                      <td ><strong id="father"></strong></td>
+                      <td>Father </td>
+                      <td  id="father"></td>
                     </tr>
                     <tr>
-                      <td><strong>Spouse's </strong></td>
-                      <td ><strong id="spouse"></strong></td>
+                      <td>Spouse's </td>
+                      <td  id="spouse"></td>
                     </tr>
                     <tr>
-                      <td><strong>Gender</strong></td>
-                      <td ><strong id="gender"></strong></td>
+                      <td>Gender</td>
+                      <td  id="gender"></td>
                     </tr>
                     <tr>
                       <td>Ration Card</td>
@@ -154,12 +184,12 @@
                       <td id="cat"></td>
                     </tr>
                     <tr>
-                      <td><strong>Economic </strong></td>
-                      <td ><strong id="economicGroup"></strong></td>
+                      <td>Economic </td>
+                      <td  id="economicGroup"></td>
                     </tr>
                     <tr>
-                      <td><strong>Address</strong></td>
-                      <td ><strong id="address"></strong></td>
+                      <td>Address</td>
+                      <td  id="address"></td>
                     </tr>
                   </tbody>
 
@@ -170,7 +200,7 @@
    
 
  
-        <div class="col s12 m4">
+        <div class="col s12 m6">
           <div class="card ">
             <div class="card-content ">
 
@@ -185,34 +215,49 @@
                     
                     
                     <tr>
-                      <td><strong>Income</strong></td>
-                      <td ><strong id="income"></strong></td>
+                      <td>Income</td>
+                      <td  id="income"></td>
                     </tr>
                     <tr>
-                      <td><strong>Bank Name</strong></td>
-                      <td ><strong id="bankName"></strong></td>
+                      <td>Bank Name</td>
+                      <td  id="bankName"></td>
                     </tr>
                     <tr>
-                      <td><strong>AC Number</strong></td>
-                      <td ><strong id="bankAc"></strong></td>
+                      <td>AC Number</strong></td>
+                      <td  id="bankAc"></td>
                     </tr>
                     <tr>
-                      <td><strong>IFS Code</strong></td>
-                      <td ><strong id="bankIFSC"></strong></td>
+                      <td>IFS Code</td>
+                      <td  id="bankIFSC"></td>
                     </tr>
                     <tr>
-                      <td><strong>Branch</strong></td>
-                      <td ><strong id="bankBranch"></strong></td>
+                      <td>Branch</td>
+                      <td  id="bankBranch"></td>
                     </tr>
                   </tbody>
 
                 </table>
+                <br><br><br><br><br><br><br><br>
             </div>
 
           </div>
         </div>
-        <div class="row center">
-          <a class="waves-effect waves-light btn" id="call_smart_contract">Check Interest Rates</a>
+        
+      </div>
+      <div class="row center">
+          <a class="waves-effect waves-light btn" id="show_interest"><i class="fas fa-money-bill-alt"></i> Check Interest Rates</a>
+        </div>
+    </div>
+
+
+    <div class="row center" id="box4">
+        <div class="col s12 m8 offset-m2">
+         
+                  <div class="card-panel red lighten-3" style="padding:20%">
+                     <h5 class="white-text"><i class="fas fa-clock"></i> <br><br>Your Loan is added to Pool<br><br>It will be approved when Lender accepts it.<br><br> :)
+                     </h5>
+                  </div>
+               
         </div>
       </div>
 
