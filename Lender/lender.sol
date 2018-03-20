@@ -16,6 +16,13 @@ contract lender {
         return lenderList; 
     }
 
+    function ignoreProcessedLender(uint8 index) public returns (bytes32[]) {
+        if(index < lenderList.length)
+          lenderList[index] = stringToBytes32("xxxx");
+        
+        return lenderList;
+    }
+
     function stringToBytes32(string memory source) public returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {
