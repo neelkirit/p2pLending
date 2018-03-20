@@ -1,6 +1,6 @@
 <html >
 <head>
-  <title>Hello World DApp</title>
+  <title>Loan DAPP</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
   <!-- Compiled and minified CSS -->
@@ -9,7 +9,7 @@
 </head>
 
 <!-- STRUCTURE STARTS HERE -->
-<body >
+<body style="background-color: #f3f3f3;">
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">P2P Loans</a>
@@ -47,7 +47,7 @@
         <div class="col s12 m6 offset-m3">
           <div class="card ">
             <div class="card-content ">
-              <span class="card-title">Congrats you are eligible</span>
+              <span class="card-title">Congrats you are eligible !</span>
                 <p>
                 <!-- <div class="input-field col s6"> -->
                   <input id="loan_amount" type="number" placeholder="Enter Loan Amount" class="validate">
@@ -65,15 +65,14 @@
 
 
       <div class="row center" id="box3">
-        <div class="col s12 m6 offset-m3">
+        <div class="col s12 m4">
           <div class="card ">
             <div class="card-content ">
-              <span class="card-title">Verify your details</span>
                 <table>
                   <thead>
                     <tr>
-                        <th>Key</th>
-                        <th>Details</th>
+                        <th colspan=2>Personal Details</th>
+                        
                     </tr>
                   </thead>
 
@@ -90,31 +89,136 @@
                       <td>DoB</td>
                       <td id="dob"></td>
                     </tr>
+                    
                     <tr>
-                      <td>Annual Income</td>
-                      <td id="income"></td>
+                      <td>Bhamashah</td>
+                      <td id="bhamashah"></td>
                     </tr>
                     <tr>
+                      <td>Landline</td>
+                      <td id="landline"></td>
+                    </tr>
+                    <tr>
+                      <td>Mobile</td>
+                      <td id="mobile"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Education</strong></td>
+                      <td ><strong id="education"></strong></td>
+                    </tr>
+
+
+
+                 <!--    <tr>
                       <td><strong>Loan Wished</strong></td>
                       <td ><strong id="loan"></strong></td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
-            </div>
-            <div class="card-action center">
-              <a class="btn" href="#" id="call_smart_contract">Proceed</a>
-              <!-- <a href="#" id="io">Cancel</a> -->
+              </div>
+        </div>
+      </div>
+ 
+
+
+        <div class="col s12 m4">
+          <div class="card ">
+            <div class="card-content ">
+
+                <table>
+                  <thead>
+                    <tr>
+                        <th colspan=2>Family Details</th>
+                        
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Father's </strong></td>
+                      <td ><strong id="father"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Spouse's </strong></td>
+                      <td ><strong id="spouse"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Gender</strong></td>
+                      <td ><strong id="gender"></strong></td>
+                    </tr>
+                    <tr>
+                      <td>Ration Card</td>
+                      <td id="rationCard"></td>
+                    </tr>
+                    <tr>
+                      <td>Category</td>
+                      <td id="cat"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Economic </strong></td>
+                      <td ><strong id="economicGroup"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Address</strong></td>
+                      <td ><strong id="address"></strong></td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
             </div>
           </div>
+   
+
+ 
+        <div class="col s12 m4">
+          <div class="card ">
+            <div class="card-content ">
+
+                <table>
+                  <thead>
+                    <tr>
+                        <th colspan=2>Financial Details</th>
+                        
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    
+                    <tr>
+                      <td><strong>Income</strong></td>
+                      <td ><strong id="income"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Bank Name</strong></td>
+                      <td ><strong id="bankName"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>AC Number</strong></td>
+                      <td ><strong id="bankAc"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>IFS Code</strong></td>
+                      <td ><strong id="bankIFSC"></strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Branch</strong></td>
+                      <td ><strong id="bankBranch"></strong></td>
+                    </tr>
+                  </tbody>
+
+                </table>
+            </div>
+
+          </div>
+        </div>
+        <div class="row center">
+          <a class="waves-effect waves-light btn" id="call_smart_contract">Check Interest Rates</a>
         </div>
       </div>
 
-
-
-
-
-   
+    
   </div>
+
 </body>
 
 

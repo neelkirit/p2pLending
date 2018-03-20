@@ -2,7 +2,8 @@ pragma solidity ^0.4.18;
 
 contract borrower {
 
-
+    
+    
     bytes32[] public borrowerDetails;
 
     function Borrower(bytes32[] borrowerDetails) public {
@@ -19,8 +20,8 @@ contract borrower {
         }
         if(flag == 0) {
             borrowerDetails.push(stringToBytes32(borrower));
-            // borrowerPool[borrowerPool.length-1]  = borrower;
         }
+        
     }
 
     function getBorrowerFromPool(uint8 id) returns (string) {
