@@ -24,6 +24,14 @@ contract borrower {
         
     }
 
+    function getBorrowerListLength() public {
+        return borrowerDetails.length;
+    }
+
+    function GetBorrowers() public returns (bytes32[]) {
+        return borrowerDetails; 
+    }
+
     function getBorrowerFromPool(uint8 id) returns (string) {
         return bytes32ToString(borrowerDetails[id]);
     }
