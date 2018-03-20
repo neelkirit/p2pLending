@@ -2,8 +2,6 @@ pragma solidity ^0.4.18;
 
 contract borrower {
 
-    
-    
     bytes32[] public borrowerDetails;
 
     function Borrower(bytes32[] borrowerDetails) public {
@@ -36,6 +34,25 @@ contract borrower {
         return bytes32ToString(borrowerDetails[id]);
     }
 
+    function removeBorrower(uint8 borrowerId) public {
+        uint8 index = -1;
+
+        for (uint i = 0; i < borrowerDetails.length; i++) {
+            if (borrowerDetails[i] == stringToBytes32(borrower)) {
+                index = i;
+            }
+        }
+
+        if (index != -1){
+            for (uint i = index; i<borrowerDetails.length-1; i++){
+            borrowerDetails[i] = borrowerDetails[i+1];
+        }
+            delete borrowerDetails[borrowerDetails.length-1];
+            borrowerDetails.length--;
+            return borrowerDetails;
+        }
+    }
+
     function stringToBytes32(string memory source) returns (bytes32 result) {
        bytes memory tempEmptyStringTest = bytes(source);
        if (tempEmptyStringTest.length == 0) {
@@ -63,5 +80,4 @@ contract borrower {
        }
        return string(bytesStringTrimmed);
     }
-
 }
